@@ -1,38 +1,39 @@
 import React from 'react';
-import { Layout, Breadcrumb } from 'antd';
+import { Layout } from 'antd';
+import { HashRouter as Router, Route } from 'react-router-dom';
 
 import SiderMenu from './SiderMenu'
+import ClazzTable from '../pages/clazz/table'
+import StudentTable from '../pages/student/table'
+
+import "./index.less"
 
 const { Header, Content, Footer } = Layout;
 
 class MainLayout extends React.Component {
-  state = {
-    collapsed: false,
-  };
-
-  onCollapse = collapsed => {
-    console.log(collapsed);
-    this.setState({ collapsed });
-  };
 
   render() {
     return (
-      <Layout style={{ minHeight: '100vh' }}>
-        <SiderMenu />
-        <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }} />
-          <Content style={{ margin: '0 16px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>User</Breadcrumb.Item>
-              <Breadcrumb.Item>Bill</Breadcrumb.Item>
-            </Breadcrumb>
-            <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-              Bill is a cat.
-            </div>
-          </Content>
-          <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+      <Router>
+        <Layout style={{ minHeight: '100vh' }}>
+          <SiderMenu />
+          <Layout className="site-layout">
+            <Header className="site-layout-background" style={{ padding: 0 }} >
+              <div className='layout-header-left'>
+              班级学生管理系统
+              </div>
+              <div className='layout-header-right'></div>
+            </Header>
+
+            <Content style={{ margin: '24px 48px' }}>
+              <Route exact key="clazz-table" path="/clazz/table" component={ClazzTable} />
+              <Route exact key="student-table" path="/student/table" component={StudentTable} />
+            </Content>
+
+            <Footer style={{ textAlign: 'center' }}>IS开发实训 ©2020 Created by p697</Footer>
+          </Layout>
         </Layout>
-      </Layout>
+      </Router>
     );
   }
 }
